@@ -5,7 +5,7 @@ session_start();
 
 
 if(!isset($_GET['locId'])) {
-    header("Location: http://localhost:8080/bobo_project/admin_electricity_manage.php");
+    header("Location: http://localhost:8000/admin_electricity_manage.php");
     die();
 } 
 

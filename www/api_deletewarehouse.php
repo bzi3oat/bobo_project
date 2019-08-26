@@ -25,7 +25,7 @@
                 showConfirmButton: false
             })
             .then(() => {
-                window.location.href = "http://localhost/bobo_project/admin_warehouse.php";
+                window.location.href = "http://localhost:8000/admin_warehouse.php";
             })
     }
 </script>

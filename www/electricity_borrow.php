@@ -225,7 +225,7 @@ $queryLocation = mysqli_query($conn, $sql);
                 .then((willDelete) => {
                     if (willDelete) {
                         window.location.href =
-                            "http://localhost/bobo_project/backend/change_status_electicity.php?loc_id=" +
+                            "http://localhost:8000/backend/change_status_electicity.php?loc_id=" +
                             loc_id + "&status=" + status
                     }
                 });

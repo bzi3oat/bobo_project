@@ -307,7 +307,7 @@ include("informant_show.php");
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = "http://localhost/bobo_project/updatestatus.php?status=3&id=" + id
+                        window.location.href = "http://localhost:8000/updatestatus.php?status=3&id=" + id
                     }
                 });
         }

@@ -235,7 +235,7 @@ include("electricity_show.php");
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = "http://localhost/bobo_project/api_delete_brand.php?brand_id=" + id
+                        window.location.href = "http://localhost:8000/api_delete_brand.php?brand_id=" + id
                     }
                 });
         }

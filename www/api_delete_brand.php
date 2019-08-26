@@ -25,7 +25,7 @@
                 showConfirmButton: false
             })
             .then(() => {
-                window.location.href = "http://localhost/bobo_project/admin_electricity_brand.php";
+                window.location.href = "http://localhost:8000/admin_electricity_brand.php";
             })
     }
 </script>

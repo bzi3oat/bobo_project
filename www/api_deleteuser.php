@@ -25,7 +25,7 @@
                 showConfirmButton: false
             })
             .then(() => {
-                window.location.href = "http://localhost:8080/bobo_project/admin_manage_user.php";
+                window.location.href = "http://localhost:8000/admin_manage_user.php";
             })
     }
 </script>

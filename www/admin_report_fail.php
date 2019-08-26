@@ -219,7 +219,7 @@ $(function() {
     $('input[name="dates"]').daterangepicker({
     opens: 'right'
   }, function(start, end, label) {
-    window.location.href = `http://localhost/bobo_project/admin_report_fail.php?startDate=${start.format('YYYY-MM-DD')}&endDate=${end.format('YYYY-MM-DD')}`
+    window.location.href = `http://localhost:8000/admin_report_fail.php?startDate=${start.format('YYYY-MM-DD')}&endDate=${end.format('YYYY-MM-DD')}`
   });
 });
 </script>

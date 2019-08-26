@@ -3,7 +3,7 @@ session_start();
 include('connect.php');
 
 if (!isset($_GET['memberId'])) {
-  header("Location: http://localhost:8080/bobo_project/admin_manage_user.php");
+  header("Location: http://localhost:8000/admin_manage_user.php");
   die();
 }
 
