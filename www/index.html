@@ -1,0 +1,565 @@
+<?php
+    $today_date = date('Y-m-d');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>แจ้งเหตุขัดข้องเสาไฟฟ้าส่องสว่าง</title>
+        <!-- ================= Favicon ================== -->
+        <!-- Standard -->
+        <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+ 
+        <!-- Styles -->
+        <link href="assets/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
+        <link href="assets/css/lib/chartist/chartist.min.css" rel="stylesheet">
+        <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
+        <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
+        <link href="assets/css/lib/owl.carousel.min.css" rel="stylesheet" />
+        <link href="assets/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+        <link href="assets/css/lib/weather-icons.css" rel="stylesheet" />
+        <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
+        <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/css/lib/helper.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+
+        <!-- materializecss FORM -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- materializecss FORM -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <!-- materializecss ICON -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        
+        <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+              height: 100%;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html {
+              height: 100%;
+              margin: 0;
+              padding: 0;
+            }
+      
+            #map {
+              height: 500px;
+              width: 600px;
+            }
+
+            
+            .li-test li{
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            }
+
+            .li-test ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            }
+
+            .li-test li {
+            float: left;
+            }
+
+            .li-test li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            }
+
+            /* Change the link color to #111 (black) on hover */
+            .li-test li a:hover {
+            background-color: #111;
+            }
+
+            .container btm {
+                margin: 0 auto;
+            }
+
+          </style>
+            
+    </head>
+
+    <body>
+
+        <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+            <div class="nano">
+                <div class="nano-content">
+                    <ul>
+                        <div class="logo"><a href="index.html"><!-- <img src="assets/images/logo.png" alt="" /> --><span>Guest</span></a></div>
+                    <li class="label">เมนูหลัก</li>
+                        <li><a href="visitor_index.php"><i class="ti-alert"></i> แจ้งเหตุขัดข้อง </a></li>
+                        <li><a href="tracking.php"><i class="ti-search"></i> ติดตามสถานะการแจ้งซ่อม</a></li>
+                       
+                    <li class="label">ช่วยเหลือ</li>
+                        <li><a href="app-email.html"><i class="ti-email"></i> ติดต่อเจ้าหน้าที่</a></li>
+                        <li><a href="app-email.html"><i class="ti-help"></i> วิธีใช้</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- /# sidebar -->
+
+        <!-- HEADER บนซ้าย -->
+            <div class="header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="float-left">
+                                <div class="hamburger sidebar-toggle">
+                                    <span class="line"></span>
+                                    <span class="line"></span>
+                                    <span class="line"></span>
+                                </div>
+                            </div>
+         <!-- HEADER บนขวา -->
+                                <div class="float-right">
+                                    <div class="header-icon">
+                                        <i type="hidden" ><a href="login/login.php" >   &nbsp; </a></i>
+                                    </div>
+                                </div>
+         <!-- ---- -->                    
+                        </div>
+                    
+                                
+                            </div>
+                        </div>
+                    </div>
+           
+    
+
+
+
+ <!-- ---- -->    
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8 p-r-0 title-margin-right">
+                            <div class="page-header">
+                                <div class="page-title">
+                                    <h1>แจ้งเหตุขัดข้องเสาไฟฟ้าส่องสว่าง <span>   </span></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# column -->
+                    <!--
+                        <div class="col-lg-4 p-l-0 title-margin-left">
+                            <div class="page-header">
+                                <div class="page-title">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Home</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    -->
+                        <!-- /# column -->
+                    </div>
+                    <!-- /# row -->
+                <!--
+                    <section id="main-content">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-money color-success border-success"></i></div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text">Total Profit</div>
+                                            <div class="stat-digit">1,012</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i></div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text">New Customer</div>
+                                            <div class="stat-digit">961</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i></div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text">Active Projects</div>
+                                            <div class="stat-digit">770</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i></div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text">Referral</div>
+                                            <div class="stat-digit">2,781</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                -->
+                    <form action="insert.php" method="post" name="form">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-title">
+                                        <h6>รายละเอียดข้อมูลการแจ้งซ่อม</h6>
+                                                    <div class="row">
+                                                        <div class="input-field col s5">
+                                                            <i class="material-icons prefix">account_circle</i>
+                                                            <input id="icon_prefix" type="text" class="validate" name="Informate_fname" maxlength="50" required>
+                                                            <label for="icon_prefix">ชื่อ</label>
+                                                        </div>
+
+                                                        <div class="input-field col s6">
+                                                            <input id="icon_telephone" type="tel" class="validate" name="Informate_lname" maxlength="50" required>
+                                                            <label for="icon_telephone">นามสกุล</label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <div class="input-field col s5">
+                                                            <i class="material-icons prefix">credit_card</i>
+                                                            <input id="icon_prefix" type="text" class="validate" name="informant_id_card" OnKeyPress="return chkNumber(this)" maxlength="13" required>
+                                                            <label for="icon_prefix">หมายเลขบัตรประชาชน</label>
+                                                        </div>
+
+                                                        <div class="input-field col s5">
+                                                            <i class="material-icons prefix">local_phone</i>
+                                                            <input id="icon_prefix" type="text" class="validate" name="informant_tel" onkeyup="autoTab(this)" OnKeyPress="return chkNumber(this)" maxlength="11" required>
+                                                            <label for="icon_prefix">เบอร์โทร</label>
+                                                        </div>
+
+                                                       
+                                                    </div>
+                                                
+
+                                                
+                                                    <div class="row">
+                                                        <div class="input-field col s12">
+                                                            <i class="material-icons prefix">format_align_left</i>
+                                                            <textarea id="textarea1" class="materialize-textarea" name="repairing_detail"></textarea>
+                                                            <label for="textarea1">รายละเอียดอื่นๆ</label>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                    </div>
+                                    <div class="card-body">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                                <!-- ระบุตำแหน่งเสาไฟฟ้าขัดข้อง -->
+                                
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-title pr">
+                                            <h6>ระบุตำแหน่งเสาไฟฟ้าที่ขัดข้อง</h6>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label></label>
+                                                        <select class="form-control" required>
+                                                        <option value="" disabled selected>เลือกหมู่บ้าน</option>
+                                                        <option value="1">หมู่ 1 บ้านตองกาย</option>
+                                                        <option value="2">หมู่ 2 บ้านฟ่อน</option>
+                                                        <option value="3">หมู่ 3 บ้านไร่-กองขิง</option>
+                                                        <option value="4">หมู่ 4 บ้านต้นเกว๋น</option>
+                                                        <option value="5">หมู่ 5 บ้านหนองควาย</option>
+                                                        <option value="6">หมู่ 6 บ้านร้อยจันทร์</option>
+                                                        <option value="7">หมู่ 7 บ้านเหมืองกุง</option>
+                                                        <option value="8">หมู่ 8 บ้านขุนเส</option>
+                                                        <option value="9">หมู่ 9 บ้านสันทราย</option>
+                                                        <option value="10">หมู่ 10 บ้านนาบุก</option>
+                                                        <option value="11">หมู่ 11 บ้านสันป่าสัก</option>
+                                                        <option value="12">หมู่ 12 บ้านตองกายเหนือ</option>                                                     </option>
+                                                    </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- GOOGLE MAP -->
+                                        <div id="map" style="width:100%;height:700px;"></div>
+                                        <script>
+
+                                                    var locations = [
+                                                                    ['<a href="login/login.php" >ID:000110</a>', 18.722239, 98.940601],
+                                                                    ['ID:000001', 18.723017, 98.940850],
+                                                                    ['ID:000002', 18.722436, 98.940835],
+                                                                    ['ID:000003', 18.722325, 98.941036],
+                                                                    ['ID:000004', 18.722244, 98.941352],
+                                                                    ['ID:000005', 18.722178, 98.941717],   
+                                                                    ['ID:000006', 18.722046, 98.940225],
+                                                                    ['ID:000007', 18.721895, 98.939741],
+                                                                    ['ID:000008', 18.721757, 98.939259],
+                                                                    ['ID:000009', 18.721339, 98.939499],
+                                                                    ['ID:000010', 18.720922, 98.939429],           
+                                                                    ['ID:000011', 18.720645, 98.939165],    
+                                                                    ['ID:000012', 18.720889, 98.939841],
+                                                                    ['ID:000013', 18.720521, 98.939723],
+                                                                    ['ID:000014', 18.719833, 98.940527],
+                                                                    ['ID:000015', 18.719982, 98.940639],
+                                                                    ['ID:000016', 18.719667, 98.941079],
+                                                                    ['ID:000017', 18.719388, 98.941755],
+                                                                    ['ID:000018', 18.719244, 98.942711],
+                                                                    ['ID:000019', 18.720582, 98.938449],
+                                                                    ['ID:000020', 18.720038, 98.938127],
+                                                                    ['ID:000021', 18.720272, 98.939034],
+                                                                    ['ID:000022', 18.720008, 98.939613],
+                                                                    ['ID:000023', 18.720008, 98.939613],
+                                                                    ['ID:000024', 18.719551, 98.939839],
+                                                                    ['ID:000025', 18.719239, 98.938761],
+                                                                    ['ID:000026', 18.718690, 98.938954],
+                                                                    ['ID:000027', 18.718975, 98.938364],
+                                                                    ['ID:000028', 18.718772, 98.938123],
+                                                                    ['ID:000029', 18.718691, 98.937812],
+                                                                    ['ID:000030', 18.719235, 98.937807],
+                                                                    ['ID:000031', 18.719591, 98.937823],
+                                                                    ['ID:000032', 18.719551, 98.939839]
+                                                                    ];
+                                        
+                                              function initMap() 
+                                              
+                                                {
+                                                    var mapOptions = 
+                                                        {
+                                                            center: {lat: 18.720889, lng: 98.939841},
+                                                            zoom: 17,
+                                                        }          
+                                                    var maps = new google.maps.Map(document.getElementById("map"),mapOptions);
+                                                    var marker, i, info;
+                                                    var contentString = '<div id="content">'+
+                                                                        '<div id="siteNotice">'+
+                                                                        '</div>'+
+                                                                        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+                                                                        '<div id="bodyContent">'+
+                                                                        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+                                                                        'sandstone rock formation in the southern part of the '+
+                                                                        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+                                                                        'south west of the nearest large town, Alice Springs; 450&#160;km '+
+                                                                        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+                                                                        'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+                                                                        'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+                                                                        'Aboriginal people of the area. It has many springs, waterholes, '+
+                                                                        'rock caves and ancient paintings. Uluru is listed as a World '+
+                                                                        'Heritage Site.</p>'+
+                                                                        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+                                                                        'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+                                                                        '(last visited June 22, 2009).</p>'+
+                                                                        '</div>'+
+                                                                        '</div>';
+
+                                                   
+                                                    for (i = 0; i < locations.length; i++) 
+                                                        {  
+                                        
+                                                            marker = new google.maps.Marker
+                                                                ({
+                                                                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                                                                map: maps,
+                                                                title: locations[i][0],
+                                                                draggable: true,
+                                                                animation: google.maps.Animation.DROP,
+                                                                title: 'หนองควาย (หนองควาย)'
+                                                                // icon: 'images/Screenshot_1.png' // ใส่รูป
+                                                                });
+
+                                                                
+                                            
+                                                            info = new google.maps.InfoWindow();
+                                            
+                                                            google.maps.event.addListener(marker, 'click', (function(marker, i) 
+                                                            {
+                                                                return function() 
+                                                                {
+                                                                    info.setContent(locations[i][0]);
+                                                                    info.open(maps, marker);
+                                                                    infowindow.open(map, marker);
+                                                                }
+                                                            })(marker, i));
+                                        
+                                                        }
+                                                    
+                                                }
+                                            </script>
+                                        <!----------------->
+
+                                    </div>
+                                </div>
+                               </div>
+
+
+                            <!-- SUBMIT FORM BUTTON -->
+                        <!-- SUBMIT FORM BUTTON -->
+                        <div class="row">
+                                <div class="col-s-3">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                        <i class="material-icons right">send</i>  
+                                    </button>
+                                </div>   &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="col-s-3">   
+                                    <button class="btn waves-effect waves-light" type="reset" name="action"> Reset
+                                    </button>
+                                </div>                   
+                            </div>
+                        </form>    
+                       
+                          
+                            <!--
+                            <div class="col-lg-4">
+                                <div class="card">
+
+                                    <div class="card-body">
+                                        <div class="ct-pie-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                          
+                        </div>
+                     
+                            
+                            <!-- /# column -->
+                        </div>
+                        <!-- /# row -->
+                        
+                        <div class="row">
+                            <div class="col-lg-5">
+                               
+                                <!-- /# card -->
+                            </div>
+                            <!-- /# column -->
+                           
+                            <!-- /# column -->
+                           
+                        </div>
+                        <!-- /# row -->
+
+                        
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="footer">
+                                     <!-- <p>2019 © copyright - <a href="#">B. </a></p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+            </div>
+            </div>
+        </div>
+        
+        <!-- jquery vendor -->
+        <script src="assets/js/lib/jquery.min.js"></script>
+        <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
+        <!-- nano scroller -->
+        <script src="assets/js/lib/menubar/sidebar.js"></script>
+        <script src="assets/js/lib/preloader/pace.min.js"></script>
+        <!-- sidebar -->
+
+        <script src="assets/js/lib/bootstrap.min.js"></script><script src="assets/js/scripts.js"></script>
+        <!-- bootstrap -->
+
+        <script src="assets/js/lib/calendar-2/moment.latest.min.js"></script>
+        <script src="assets/js/lib/calendar-2/pignose.calendar.min.js"></script>
+        <script src="assets/js/lib/calendar-2/pignose.init.js"></script>
+
+
+        <script src="assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+        <script src="assets/js/lib/weather/weather-init.js"></script>
+        <script src="assets/js/lib/circle-progress/circle-progress.min.js"></script>
+        <script src="assets/js/lib/circle-progress/circle-progress-init.js"></script>
+        <script src="assets/js/lib/chartist/chartist.min.js"></script>
+        <script src="assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
+        <script src="assets/js/lib/sparklinechart/sparkline.init.js"></script>
+        <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+        <script src="assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+        <!-- scripit init-->
+    <script src="assets/js/dashboard2.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+        $('input#input_text, textarea#textarea2').characterCounter();
+        });
+    </script>
+
+    <script>
+        function myMap() {
+        var mapProp= {
+          center:new google.maps.LatLng(51.508742,-0.120850),
+          zoom:5,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        }
+        </script>
+    
+    <!-- ฟอร์มเบอร์โทร -->
+    <script type="text/javascript">
+    function autoTab(obj){
+        /* กำหนดรูปแบบข้อความโดยให้ _ แทนค่าอะไรก็ได้ แล้วตามด้วยเครื่องหมาย
+        หรือสัญลักษณ์ที่ใช้แบ่ง เช่นกำหนดเป็น  รูปแบบเลขที่บัตรประชาชน
+        4-2215-54125-6-12 ก็สามารถกำหนดเป็น  _-____-_____-_-__
+        รูปแบบเบอร์โทรศัพท์ 08-4521-6521 กำหนดเป็น __-____-____
+        หรือกำหนดเวลาเช่น 12:45:30 กำหนดเป็น __:__:__
+        ตัวอย่างข้างล่างเป็นการกำหนดรูปแบบเลขบัตรประชาชน
+        */
+            var pattern=new String("___-_______"); // กำหนดรูปแบบในนี้
+            var pattern_ex=new String("-"); // กำหนดสัญลักษณ์หรือเครื่องหมายที่ใช้แบ่งในนี้
+            var returnText=new String("");
+            var obj_l=obj.value.length;
+            var obj_l2=obj_l-1;
+            for(i=0;i<pattern.length;i++){           
+                if(obj_l2==i && pattern.charAt(i+1)==pattern_ex){
+                    returnText+=obj.value+pattern_ex;
+                    obj.value=returnText;
+                }
+            }
+            if(obj_l>=pattern.length){
+                obj.value=obj.value.substr(0,pattern.length);           
+            }
+    }
+    </script>
+
+    <!-- บังคับกรอกได้แค่เลข -->
+    <script language="JavaScript">
+        function chkNumber(ele)
+        {
+        var vchar = String.fromCharCode(event.keyCode);
+        if ((vchar<'0' || vchar>'9') && (vchar != '.')) return false;
+        ele.onKeyPress=vchar;
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV_WYNaYYPu9k86zrR-quNycJDvhcNur4&callback=initMap" async defer></script>
+    
+</body>
+
+</html>

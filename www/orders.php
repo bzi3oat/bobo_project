@@ -1,0 +1,270 @@
+<?php
+session_start();
+include('connect.php');
+
+$locationSQL = "SELECT * FROM warehouse where stuff_amount < 100";
+$queryLocation = mysqli_query($conn, $locationSQL);
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Focus Admin: Admin UI</title>
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <!-- materializecss -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="assets/css/lib/weather-icons.css" rel="stylesheet" />
+    <link href="assets/css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+
+    <link href="assets/css/lib/helper.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <?php
+    include("admin_sidebar.php");
+    include("admin_header.php");
+    ?>
+
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>รายการสินค้าที่ใกล้หมด <span> </span></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <div>
+                                        <th>รหัส</th>
+                                    </div>
+                                    <div>
+                                        <th>ชื่อวัสดุ</th>
+                                    </div>
+                                    <div>
+                                        <th>จำนวนที่เหลือ</th>
+                                    </div>
+                                    <!-- <div> <th>วันที่แจ้ง</th></div> -->
+                                    <div>
+                                        <th>วันที่</th>
+                                    </div>
+                                    <div>
+                                        <th class="text-center">ออกใบสั่งซื้อ</th>
+                                    </div>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    while($row = $queryLocation->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>".$row['stuff_id']."</td>";
+                                        echo "<td>".$row['stuff_name']."</td>";
+                                        echo "<td>".$row['stuff_amount']."</td>";
+                                        echo "<td>".$row['stuff_date']. "</td>";
+                                        echo '<td class="text-center"><button type="button" class="btn btn-success" id="modalbtn" data-toggle="modal" data-target="#exampleModalCenter" data-stuff="'. $row['stuff_id'] .'">
+                                                <i class="ti-receipt"></i> 
+                                            </button>
+                                            </td>';
+                                        echo "</tr>";
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer">
+                    <!-- <p>  - <a href="#">example.com</a></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+    <div id="search">
+        <button type="button" class="close">×</button>
+        <form>
+            <input type="search" value="" placeholder="type keyword(s) here" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">รายละเอียดคำสั่งซื้อ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">จำนวน</label>
+                                <input type="text" class="form-control" id="total">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">ราคา/ชิ้น</label>
+                                <input type="text" class="form-control" id="price">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="save">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery vendor -->
+    <script src="assets/js/lib/jquery.min.js"></script>
+    <script>
+        $('#modalbtn').click(function () {
+            var href = $(this).data('target')
+            var stuff = $(this).data('stuff');
+            
+            $(href).data('stuff', stuff);
+            $(href).data('amount', amount);
+        });
+
+        $('#total').on('keyup', function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+        })
+
+        $('#price').on('keyup', function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+        })
+
+        $('#save').click(function (e) {
+            const total = $('#total').val();
+            const price = $('#price').val()
+
+            if (total !== "" && typeof total !== 'undefined' &&
+                price !== "" && typeof price !== 'undefined') {
+                window.location.href = "http://localhost:8000/order_insert.php?amount=" + total +
+                    "&stuff_id=" + $('#exampleModalCenter').data('stuff') +
+                    "&price=" + price
+            } else {
+                alert('กรุณากรอกข้อมูลให้ครบ')
+            }
+        })
+    </script>
+    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="assets/js/lib/menubar/sidebar.js"></script>
+    <script src="assets/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+
+    <!-- bootstrap -->
+
+    <script src="assets/js/lib/circle-progress/circle-progress.min.js"></script>
+    <script src="assets/js/lib/circle-progress/circle-progress-init.js"></script>
+
+    <script src="assets/js/lib/morris-chart/raphael-min.js"></script>
+    <script src="assets/js/lib/morris-chart/morris.js"></script>
+    <script src="assets/js/lib/morris-chart/morris-init.js"></script>
+
+    <!--  flot-chart js -->
+    <script src="assets/js/lib/flot-chart/jquery.flot.js"></script>
+    <script src="assets/js/lib/flot-chart/jquery.flot.resize.js"></script>
+    <script src="assets/js/lib/flot-chart/flot-chart-init.js"></script>
+    <!-- // flot-chart js -->
+
+
+    <script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.algeria.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.argentina.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.brazil.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.france.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.germany.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.greece.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.iran.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.iraq.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.russia.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.tunisia.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.europe.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/country/jquery.vmap.usa.js"></script>
+    <!-- scripit init-->
+    <script src="assets/js/lib/vector-map/vector.init.js"></script>
+
+    <script src="assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+    <script src="assets/js/lib/weather/weather-init.js"></script>
+    <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- scripit init-->
+</body>
+
+</html>
