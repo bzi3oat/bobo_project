@@ -2,7 +2,16 @@
 session_start();
 include('connect.php');
 
-$locationSQL = "SELECT br.*, warehouse.stuff_name, (SELECT COUNT(*) FROM borrow as b where b.b_date <= br.b_date and b.loc_id = br.loc_id) AS position from borrow as br inner join warehouse on br.stuff_id = warehouse.stuff_id";
+$perpage = 10;
+ if (isset($_GET['page'])) {
+ $page = $_GET['page'];
+ } else {
+ $page = 1;
+ }
+ 
+ $start = ($page - 1) * $perpage;
+
+$locationSQL = "SELECT br.*, warehouse.stuff_name, (SELECT COUNT(*) FROM borrow as b where b.b_date <= br.b_date and b.loc_id = br.loc_id) AS position from borrow as br inner join warehouse on br.stuff_id = warehouse.stuff_id limit {$start} , {$perpage}";
 $queryLocation = mysqli_query($conn, $locationSQL);
 
 ?>
@@ -110,6 +119,26 @@ $queryLocation = mysqli_query($conn, $locationSQL);
                 </div>
             </div>
         </div>
+      
+        <?php
+    $statistic = "SELECT br.*, warehouse.stuff_name, (SELECT COUNT(*) FROM borrow as b where b.b_date <= br.b_date and b.loc_id = br.loc_id) AS position from borrow as br inner join warehouse on br.stuff_id = warehouse.stuff_id";
+    $query2 = mysqli_query($conn, $statistic);
+    $total_record = mysqli_num_rows($query2);
+    $total_page = ceil($total_record / $perpage);
+    ?>
+        <div class="col-lg-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="statistic_electricity.php?page=1" tabindex="-1">Previous</a>
+                </li>
+                <?php for($i=1;$i<=$total_page;$i++){ ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="statistic_electricity.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                <a class="page-link" href="statistic_electricity.php?page=<?php echo $total_page; ?>">Next</a>
+                </li>
+            </ul>
+            </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer">

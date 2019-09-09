@@ -1,7 +1,17 @@
 <?php
 session_start();
 include('connect.php');
-$strSQL = "SELECT * FROM member WHERE member_id != '". $_SESSION['member_id'] ."'ORDER BY member_id DESC";
+
+$perpage = 10;
+ if (isset($_GET['page'])) {
+ $page = $_GET['page'];
+ } else {
+ $page = 1;
+ }
+ 
+ $start = ($page - 1) * $perpage;
+
+$strSQL = "SELECT * FROM member WHERE member_id != '". $_SESSION['member_id'] ."'ORDER BY member_id DESC limit {$start} , {$perpage}";
 mysqli_set_charset($conn, 'utf8');
 $member2 = mysqli_query($conn, $strSQL);
 
@@ -173,6 +183,27 @@ $member2 = mysqli_query($conn, $strSQL);
             </div>
         </div>
 
+        <?php
+    $sql2 = "SELECT * FROM member WHERE member_id != '". $_SESSION['member_id'] ."'";
+    $query2 = mysqli_query($conn, $sql2);
+    $total_record = mysqli_num_rows($query2);
+    $total_page = ceil($total_record / $perpage);
+    ?>
+
+    <div class="col-lg-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="admin_manage_user.php?page=1" tabindex="-1">Previous</a>
+                </li>
+                <?php for($i=1;$i<=$total_page;$i++){ ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="admin_manage_user.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                <a class="page-link" href="admin_manage_user.php?page=<?php echo $total_page; ?>">Next</a>
+                </li>
+            </ul>
+            </div>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer">
@@ -181,6 +212,7 @@ $member2 = mysqli_query($conn, $strSQL);
             </div>
         </div>
     </div>
+
 
     <script>
     $(document).ready(function(){

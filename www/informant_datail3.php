@@ -2,22 +2,31 @@
 session_start();
 include('connect.php');
 
-$deSQL = "SELECT * FROM declaration ORDER BY declaration_id DESC";
+$perpage = 10;
+ if (isset($_GET['page'])) {
+ $page = $_GET['page'];
+ } else {
+ $page = 1;
+ }
+ 
+ $start = ($page - 1) * $perpage;
+
+$deSQL = "SELECT * FROM declaration ORDER BY declaration_id DESC ";
 $updatestatus;
 
 if (isset($_SESSION["member_typeid"])) {
     if ($_SESSION["member_typeid"] == 1) {
-        $deSQL = $deSQL . "inner join declaration_progress on declaration.declaration_id = declaration_progress.d_id WHERE  declaration_progress.d_id = declaration.declaration_id and declaration_progress.mem_typeid = 1 and declaration_progress.mem_id is null";
+        $deSQL = $deSQL . "inner join declaration_progress on declaration.declaration_id = declaration_progress.d_id WHERE  declaration_progress.d_id = declaration.declaration_id and declaration_progress.mem_typeid = 1 and declaration_progress.mem_id is null limit {$start} , {$perpage}";
         $updatestatus = 0;
     }
     if ($_SESSION["member_typeid"] == 2) {
         $deSQL = $deSQL . "inner join declaration_progress on declaration.declaration_id = declaration_progress.d_id
-        where (declaration_progress.mem_typeid = 1 and (declaration_progress.mem_id is not null and declaration_progress.dp_status = 0)) AND declaration.declaration_id in (select declaration_id from declaration_progress where  declaration_progress.d_id = declaration.declaration_id and declaration_progress.mem_typeid = 2 and declaration_progress.mem_id is null)";
+        where (declaration_progress.mem_typeid = 1 and (declaration_progress.mem_id is not null and declaration_progress.dp_status = 0)) AND declaration.declaration_id in (select declaration_id from declaration_progress where  declaration_progress.d_id = declaration.declaration_id and declaration_progress.mem_typeid = 2 and declaration_progress.mem_id is null) limit {$start} , {$perpage}";
         $updatestatus = 1;
     }
     if ($_SESSION["member_typeid"] == 3) {
         $deSQL = $deSQL . "inner join declaration_progress on declaration.declaration_id = declaration_progress.d_id
-        where (declaration_progress.mem_typeid = 1 and (declaration_progress.mem_id is not null and declaration_progress.dp_status = 0)) AND declaration.declaration_id in (select declaration_id from declaration_progress where declaration_progress.mem_typeid = 2 and declaration_progress.mem_id is not null and declaration_progress.dp_status = 1)  AND declaration.declaration_id in (select declaration_id from declaration_progress where declaration_progress.mem_typeid = 3 and declaration_progress.mem_id is null and declaration_progress.d_id = declaration.declaration_id)";
+        where (declaration_progress.mem_typeid = 1 and (declaration_progress.mem_id is not null and declaration_progress.dp_status = 0)) AND declaration.declaration_id in (select declaration_id from declaration_progress where declaration_progress.mem_typeid = 2 and declaration_progress.mem_id is not null and declaration_progress.dp_status = 1)  AND declaration.declaration_id in (select declaration_id from declaration_progress where declaration_progress.mem_typeid = 3 and declaration_progress.mem_id is null and declaration_progress.d_id = declaration.declaration_id) limit {$start} , {$perpage}";
         $updatestatus = 2;
     }
 }
@@ -205,6 +214,44 @@ include("informant_show.php");
                         </div>
                     </div>
                 </div>
+            </div>
+            <?php
+            $deSQL = "SELECT * FROM declaration ORDER BY declaration_id DESC ";
+            $updatestatus;
+            
+            if (isset($_SESSION["member_typeid"])) {
+                if ($_SESSION["member_typeid"] == 1) {
+                    $deSQL = $deSQL . "inner join declaration_progress on declaration.declaration_id = declaration_progress.d_id WHERE  declaration_progress.d_id = declaration.declaration_id and declaration_progress.mem_typeid = 1 and declaration_progress.mem_id is null";
+                    $updatestatus = 0;
+                }
+                if ($_SESSION["member_typeid"] == 2) {
+                    $deSQL = $deSQL . "inner join declaration_progress on declaration.declaration_id = declaration_progress.d_id
+                    where (declaration_progress.mem_typeid = 1 and (declaration_progress.mem_id is not null and declaration_progress.dp_status = 0)) AND declaration.declaration_id in (select declaration_id from declaration_progress where  declaration_progress.d_id = declaration.declaration_id and declaration_progress.mem_typeid = 2 and declaration_progress.mem_id is null)";
+                    $updatestatus = 1;
+                }
+                if ($_SESSION["member_typeid"] == 3) {
+                    $deSQL = $deSQL . "inner join declaration_progress on declaration.declaration_id = declaration_progress.d_id
+                    where (declaration_progress.mem_typeid = 1 and (declaration_progress.mem_id is not null and declaration_progress.dp_status = 0)) AND declaration.declaration_id in (select declaration_id from declaration_progress where declaration_progress.mem_typeid = 2 and declaration_progress.mem_id is not null and declaration_progress.dp_status = 1)  AND declaration.declaration_id in (select declaration_id from declaration_progress where declaration_progress.mem_typeid = 3 and declaration_progress.mem_id is null and declaration_progress.d_id = declaration.declaration_id)";
+                    $updatestatus = 2;
+                }
+            }
+  
+    $query2 = mysqli_query($conn, $deSQL);
+    $total_record = mysqli_num_rows($query2);
+    $total_page = ceil($total_record / $perpage);
+    ?>
+        <div class="col-lg-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="informant_datail3.php?page=1" tabindex="-1">Previous</a>
+                </li>
+                <?php for($i=1;$i<=$total_page;$i++){ ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="informant_datail3.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                <a class="page-link" href="informant_datail3.php?page=<?php echo $total_page; ?>">Next</a>
+                </li>
+            </ul>
             </div>
             <div class="row">
                 <div class="col-lg-12">

@@ -1,7 +1,17 @@
 <?php
 session_start();
 include('connect.php');
-$lampSQL = "SELECT * FROM type_lamp";
+
+$perpage = 10;
+ if (isset($_GET['page'])) {
+ $page = $_GET['page'];
+ } else {
+ $page = 1;
+ }
+ 
+ $start = ($page - 1) * $perpage;
+
+$lampSQL = "SELECT * FROM type_lamp limit {$start} , {$perpage}";
 $queryLamp = mysqli_query($conn, $lampSQL);
 
 ?>
@@ -136,6 +146,25 @@ include("electricity_show.php");
                 </div>
             </div>
         </div>
+        <?php
+    $statistic = "SELECT * FROM type_lamp";
+    $query2 = mysqli_query($conn, $statistic);
+    $total_record = mysqli_num_rows($query2);
+    $total_page = ceil($total_record / $perpage);
+    ?>
+        <div class="col-lg-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="admin_electricity_lamp.php?page=1" tabindex="-1">Previous</a>
+                </li>
+                <?php for($i=1;$i<=$total_page;$i++){ ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="admin_electricity_lamp.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                <a class="page-link" href="admin_electricity_lamp.php?page=<?php echo $total_page; ?>">Next</a>
+                </li>
+            </ul>
+            </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer">

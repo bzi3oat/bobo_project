@@ -2,15 +2,22 @@
 session_start();
 include('connect.php');
 
+$perpage = 10;
+ if (isset($_GET['page'])) {
+ $page = $_GET['page'];
+ } else {
+ $page = 1;
+ }
+ $start = ($page - 1) * $perpage;
 $strSQL = "SELECT * FROM member WHERE member_id = '" . $_SESSION['member_id'] . "' ";
 mysqli_set_charset($conn, 'utf8');
 $objQuery = mysqli_query($conn, $strSQL);
 $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 
-$locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id left join location on borrow.loc_id = location.LOC_ID left join village on location.village_id = village.village_id ORDER BY b_id desc ";
+$locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id left join location on borrow.loc_id = location.LOC_ID left join village on location.village_id = village.village_id ORDER BY b_id desc limit {$start} , {$perpage}";
 
 if(isset($_GET['startDate']) && isset($_GET['endDate'])) {
-    $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id inner join location on borrow.loc_id = location.LOC_ID inner join village on location.village_id = village.village_id WHERE b_date >= " . '"'.$_GET['startDate'].'"' . " and b_date <= ". '"'.$_GET['endDate'].'" ORDER BY b_id desc';
+    $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id inner join location on borrow.loc_id = location.LOC_ID inner join village on location.village_id = village.village_id WHERE b_date >= " . '"'.$_GET['startDate'].'"' . " and b_date <= ". '"'.$_GET['endDate'].'" ORDER BY b_id desc '. " limit {$start} , {$perpage}";
 }
 
 $queryLocation = mysqli_query($conn, $locationSQL);
@@ -150,6 +157,29 @@ include("electricity_show.php");
                 </div>
             </div>
         </div>
+        <?php
+   $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id left join location on borrow.loc_id = location.LOC_ID left join village on location.village_id = village.village_id ORDER BY b_id desc ";
+
+   if(isset($_GET['startDate']) && isset($_GET['endDate'])) {
+       $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id inner join location on borrow.loc_id = location.LOC_ID inner join village on location.village_id = village.village_id WHERE b_date >= " . '"'.$_GET['startDate'].'"' . " and b_date <= ". '"'.$_GET['endDate'].'" ORDER BY b_id desc ';
+   }
+    $query2 = mysqli_query($conn, $locationSQL);
+    $total_record = mysqli_num_rows($query2);
+    $total_page = ceil($total_record / $perpage);
+    ?>
+        <div class="col-lg-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="withdraw_history.php?page=1" tabindex="-1">Previous</a>
+                </li>
+                <?php for($i=1;$i<=$total_page;$i++){ ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="withdraw_history.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                <a class="page-link" href="withdraw_history.php?page=<?php echo $total_page; ?>">Next</a>
+                </li>
+            </ul>
+            </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer">

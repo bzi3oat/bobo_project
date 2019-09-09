@@ -2,6 +2,14 @@
 session_start();
 include('connect.php');
 
+$perpage = 10;
+ if (isset($_GET['page'])) {
+ $page = $_GET['page'];
+ } else {
+ $page = 1;
+ }
+ $start = ($page - 1) * $perpage;
+
 $strSQL = "SELECT * FROM member WHERE member_id = '" . $_SESSION['member_id'] . "' ";
 
 $objQuery = mysqli_query($conn, $strSQL);
@@ -9,10 +17,10 @@ $objResult = mysqli_fetch_array($objQuery);
 
 ?>
 <?php
-$select = "SELECT * FROM declaration where repairing_status = 2 order by declaration_id desc ";
+$select = "SELECT * FROM declaration where repairing_status = 2 order by declaration_id desc limit {$start} , {$perpage}";
 
 if(isset($_GET['startDate']) && isset($_GET['endDate'])) {
-    $select = "SELECT * FROM declaration where repairing_status = 2 and (declaration_date >= "."'".$_GET['startDate']."'"." and declaration_date <= ". "'".$_GET['endDate']. "')". " order by declaration_id desc ";
+    $select = "SELECT * FROM declaration where repairing_status = 2 and (declaration_date >= "."'".$_GET['startDate']."'"." and declaration_date <= ". "'".$_GET['endDate']. "')". " order by declaration_id desc limit {$start} , {$perpage}";
 }
 
 $result = $conn->query($select);
@@ -171,6 +179,30 @@ $result = $conn->query($select);
                         <!-- /# column -->
                     </div>
                     <!-- /# row -->
+
+                    <?php
+  $select = "SELECT * FROM declaration where repairing_status = 2 order by declaration_id desc";
+
+  if(isset($_GET['startDate']) && isset($_GET['endDate'])) {
+      $select = "SELECT * FROM declaration where repairing_status = 2 and (declaration_date >= "."'".$_GET['startDate']."'"." and declaration_date <= ". "'".$_GET['endDate']. "')". " order by declaration_id desc";
+  }
+    $query2 = mysqli_query($conn, $select);
+    $total_record = mysqli_num_rows($query2);
+    $total_page = ceil($total_record / $perpage);
+    ?>
+        <div class="col-lg-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="admin_report_complete.php?page=1" tabindex="-1">Previous</a>
+                </li>
+                <?php for($i=1;$i<=$total_page;$i++){ ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="admin_report_complete.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                <a class="page-link" href="admin_report_complete.php?page=<?php echo $total_page; ?>">Next</a>
+                </li>
+            </ul>
+            </div>
 
                     <div class="row">
                         <div class="col-lg-12">

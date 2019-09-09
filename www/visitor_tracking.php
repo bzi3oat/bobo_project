@@ -1,7 +1,16 @@
 <?php
 include("connect.php");
 
-$select = "SELECT * FROM declaration order by declaration_id desc ";
+$perpage = 10;
+ if (isset($_GET['page'])) {
+ $page = $_GET['page'];
+ } else {
+ $page = 1;
+ }
+ 
+ $start = ($page - 1) * $perpage;
+
+$select = "SELECT * FROM declaration order by declaration_id desc limit {$start} , {$perpage}";
 
 $result = $conn->query($select);
 ?>
@@ -185,10 +194,26 @@ $result = $conn->query($select);
         </div>
     </div>
 
+    <?php
+    $sql2 = "select * from declaration ";
+    $query2 = mysqli_query($conn, $sql2);
+    $total_record = mysqli_num_rows($query2);
+    $total_page = ceil($total_record / $perpage);
+    ?>
 
-
-
-
+    <div class="row">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="visitor_tracking.php?page=1" tabindex="-1">Previous</a>
+                </li>
+                <?php for($i=1;$i<=$total_page;$i++){ ?>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="visitor_tracking.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php } ?>
+                <li class="page-item">
+                <a class="page-link" href="visitor_tracking.php?page=<?php echo $total_page; ?>">Next</a>
+                </li>
+            </ul>
+            </div>
 
 
     <script>
