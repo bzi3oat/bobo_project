@@ -77,7 +77,7 @@ $profile = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
                         </ul>
                         <?php if ($_SESSION['member_typeid'] == 2) { ?>
                             <ul>
-                                <li><a href="admin_electricity_lamp.php">จัดการประเภทหลอดไฟ</a></li>
+                                <li><a href="admin_electricity_lamp.php">จัดการประเภทวัสดุ</a></li>
                             </ul>
                             <ul>
                                 <li><a href="admin_electricity_brand.php">จัดการประเภทยี่ห้อวัสดุ</a></li>
@@ -96,9 +96,7 @@ $profile = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
                         <ul>
                             <li><a href="admin_report_complete.php">งานซ่อมที่เสร็จสิ้น</a></li>
                         </ul>
-                        <ul>
-                            <li><a href="admin_report_fail.php">งานซ่อมที่ไม่ได้ดำเนินการ</a></li>
-                        </ul>
+                     
                     </li>
                     </li>
                 <?php } ?>

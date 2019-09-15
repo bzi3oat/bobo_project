@@ -89,8 +89,7 @@
 	
 	<p style="text-align:left; font-size:14pt; "> สถานะการดำเนินงาน 	</p> 
 	<p style="text-align:left; font-size:14pt; "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" '.($objResult['repairing_status'] == 2 ? 'checked="checked"' : '').'> ดำเนินการเสร็จสิ้น
-	
-	<p style="text-align:left; font-size:14pt; "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" '.($objResult['repairing_status'] == 3 ? 'checked="checked"' : '').'> ไม่สามารถดำเนินการได้   	</p> ';
+</p> ';
 
 $mpdf->WriteHTML($head);
 $mpdf->Output();

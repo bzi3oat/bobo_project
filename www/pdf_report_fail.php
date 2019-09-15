@@ -66,16 +66,17 @@ $head = '
     }
   
 </style>
-<h6 style="text-align:center">รายงานการซ่อมที่ไม่ได้ดำเนินการ</h6>
+<h6 style="text-align:center">ประวัติการเบิกถอนวัสดุ</h6>
 <p style="text-align:right; font-size:14pt;" >พิมพ์เมื่อ '.DateThai($now).'  </p>
 <table id="bg-table" width="100%" style="border-collapse: collapse; margin-top:8px;">
 <thead>
         <tr  style="border:1px solid #000; padding:4px;">
         <td  width="20%" style="border-right:1px solid #000;padding:4px;text-align:center;">ลำดับ</td>
-        <td  width="45%" style="border-right:1px solid #000; padding:4px;text-align:center;">&nbsp;วันและเวลาการแจ้งซ่อม</td>
-        <td  width="45%" style="border-right:1px solid #000; padding:4px;text-align:center;">&nbsp;ชื่อ-สกุลผู้แจ้ง</td>
-        <td  width="45%" style="border-right:1px solid #000; padding:4px;text-align:center;">เบอร์โทร</td>
-        <td  width="20%" style="border-right:1px solid #000; padding:4px;text-align:center;">รหัสเสาไฟฟ้า</td>
+        <td  width="45%" style="border-right:1px solid #000; padding:4px;text-align:center;">&nbsp;วันที่เบิก</td>
+        <td  width="45%" style="border-right:1px solid #000; padding:4px;text-align:center;">&nbsp;รายการวัสดุที่เบิก</td>
+        <td  width="45%" style="border-right:1px solid #000; padding:4px;text-align:center;">จำนวน</td>
+        <td  width="20%" style="border-right:1px solid #000; padding:4px;text-align:center;">ชื่อผู้เบิก</td>
+        <td  width="20%" style="border-right:1px solid #000; padding:4px;text-align:center;">เสาไฟ</td>
         </tr>   
 </thead>
 <tbody>';

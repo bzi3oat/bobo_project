@@ -108,7 +108,7 @@ $queryLocation = mysqli_query($conn, $locationSQL);
                                         echo "<td>".$row['stuff_name']."</td>";
                                         echo "<td>".$row['stuff_amount']."</td>";
                                         echo "<td>".$row['stuff_date']. "</td>";
-                                        echo '<td class="text-center"><button type="button" class="btn btn-success" id="modalbtn" data-toggle="modal" data-target="#exampleModalCenter" data-stuff="'. $row['stuff_id'] .'">
+                                        echo '<td class="text-center"><button type="button" class="btn btn-primary" id="modalbtn" data-toggle="modal" data-target="#exampleModalCenter" data-stuff="'. $row['stuff_id'] .'">
                                                 <i class="ti-receipt"></i> 
                                             </button>
                                             </td>';

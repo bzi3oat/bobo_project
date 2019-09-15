@@ -72,11 +72,10 @@
 							</div>
 
 							<div class="container-login100-form-btn">
-								<div style="padding-left:30px;"></div>
-								<button class="login100-form-btn" name="Submit" value="Login"  >
+								<button class="login100-form-btn" name="Submit" value="Login" style="margin-right:auto;margin-left:auto;">
 									Login
-								</button>&nbsp;&nbsp;&nbsp;&nbsp;
-								<button class="login100-form-btn">
+								</button>
+								<button class="login100-form-btn"  style="margin-right:auto;margin-left:auto;">
 									<a href="../visitor_index.php">Cancle</a> 
 									</button>
 									

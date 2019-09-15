@@ -3,12 +3,12 @@ session_start();
 include('connect.php');
 
 $perpage = 10;
- if (isset($_GET['page'])) {
- $page = $_GET['page'];
- } else {
- $page = 1;
- }
- $start = ($page - 1) * $perpage;
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 1;
+}
+$start = ($page - 1) * $perpage;
 $strSQL = "SELECT * FROM member WHERE member_id = '" . $_SESSION['member_id'] . "' ";
 mysqli_set_charset($conn, 'utf8');
 $objQuery = mysqli_query($conn, $strSQL);
@@ -16,8 +16,8 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 
 $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id left join location on borrow.loc_id = location.LOC_ID left join village on location.village_id = village.village_id ORDER BY b_id desc limit {$start} , {$perpage}";
 
-if(isset($_GET['startDate']) && isset($_GET['endDate'])) {
-    $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id inner join location on borrow.loc_id = location.LOC_ID inner join village on location.village_id = village.village_id WHERE b_date >= " . '"'.$_GET['startDate'].'"' . " and b_date <= ". '"'.$_GET['endDate'].'" ORDER BY b_id desc '. " limit {$start} , {$perpage}";
+if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
+    $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id inner join location on borrow.loc_id = location.LOC_ID inner join village on location.village_id = village.village_id WHERE b_date >= " . '"' . $_GET['startDate'] . '"' . " and b_date <= " . '"' . $_GET['endDate'] . '" ORDER BY b_id desc ' . " limit {$start} , {$perpage}";
 }
 
 $queryLocation = mysqli_query($conn, $locationSQL);
@@ -100,15 +100,22 @@ include("electricity_show.php");
 
 
 
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="row">
                         <div class="input-field col s2">
                             <h6>ระบุวันที่ต้องการค้นหา</h6>
                         </div>
                         <div class="input-field col s2" id="datep-start">
-                        <input type="text" name="dates" <?php echo ((isset($_GET['startDate']) && isset($_GET['endDate'])) ? 'value="'.date( "m-d-Y", strtotime($_GET['startDate'])).' - '.date( "m-d-Y", strtotime($_GET['endDate'])). '"' : ''); ?>/>
+                            <input type="text" name="dates" <?php echo ((isset($_GET['startDate']) && isset($_GET['endDate'])) ? 'value="' . date("m-d-Y", strtotime($_GET['startDate'])) . ' - ' . date("m-d-Y", strtotime($_GET['endDate'])) . '"' : ''); ?> />
                         </div>
-                      
+                        <div class="input-field col s2" id="datep-start">
+                        <a href="pdf_report_fail.php<?php echo ((isset($_GET['startDate']) && isset($_GET['endDate'])) ? '?startDate=' . $_GET['startDate'] . '&endDate=' . $_GET['endDate'] : ''); ?>">
+                            <button class="btn btn-info m-b-5 m-l-1" type="button">
+                                ออกรายงาน PDF&nbsp;<i class="ti-printer"></i>
+                            </button>
+                            
+                        </a>
+                        </div>
                     </div>
                 </div>
 
@@ -141,14 +148,14 @@ include("electricity_show.php");
                             <tbody>
                                 <?php
                                 while ($row = $queryLocation->fetch_assoc()) {
-                                     echo "<tr>";
-                                     echo "<td>".$row['b_id']."</td>";
-                                     echo "<td>".date( "d/m/Y", strtotime($row['b_date']))."</td>";
-                                     echo "<td>".$row['stuff_name']."</td>";
-                                     echo "<td>".$row['b_amount']."</td>";
-                                     echo "<td>".$row['member_fname']. ' '. $row['member_lname']."</td>";
-                                     echo "<td>". $row['village_name'] . "(" . $row['loc_id'] . ")</td>";
-                                     echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td>" . $row['b_id'] . "</td>";
+                                    echo "<td>" . date("d/m/Y", strtotime($row['b_date'])) . "</td>";
+                                    echo "<td>" . $row['stuff_name'] . "</td>";
+                                    echo "<td>" . $row['b_amount'] . "</td>";
+                                    echo "<td>" . $row['member_fname'] . ' ' . $row['member_lname'] . "</td>";
+                                    echo "<td>" . $row['village_name'] . "(" . $row['loc_id'] . ")</td>";
+                                    echo "</tr>";
                                 }
                                 ?>
                             </tbody>
@@ -158,28 +165,28 @@ include("electricity_show.php");
             </div>
         </div>
         <?php
-   $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id left join location on borrow.loc_id = location.LOC_ID left join village on location.village_id = village.village_id ORDER BY b_id desc ";
+        $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id left join location on borrow.loc_id = location.LOC_ID left join village on location.village_id = village.village_id ORDER BY b_id desc ";
 
-   if(isset($_GET['startDate']) && isset($_GET['endDate'])) {
-       $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id inner join location on borrow.loc_id = location.LOC_ID inner join village on location.village_id = village.village_id WHERE b_date >= " . '"'.$_GET['startDate'].'"' . " and b_date <= ". '"'.$_GET['endDate'].'" ORDER BY b_id desc ';
-   }
-    $query2 = mysqli_query($conn, $locationSQL);
-    $total_record = mysqli_num_rows($query2);
-    $total_page = ceil($total_record / $perpage);
-    ?>
+        if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
+            $locationSQL = "SELECT * FROM borrow inner join warehouse on borrow.stuff_id = warehouse.stuff_id inner join type_brand on warehouse.stuff_brand = type_brand.brand_id inner join type_lamp on warehouse.stuff_type = type_lamp.lamp_id inner join member on borrow.member_id = member.member_id inner join location on borrow.loc_id = location.LOC_ID inner join village on location.village_id = village.village_id WHERE b_date >= " . '"' . $_GET['startDate'] . '"' . " and b_date <= " . '"' . $_GET['endDate'] . '" ORDER BY b_id desc ';
+        }
+        $query2 = mysqli_query($conn, $locationSQL);
+        $total_record = mysqli_num_rows($query2);
+        $total_page = ceil($total_record / $perpage);
+        ?>
         <div class="col-lg-12">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
-                <a class="page-link" href="withdraw_history.php?page=1" tabindex="-1">Previous</a>
+                    <a class="page-link" href="withdraw_history.php?page=1" tabindex="-1">Previous</a>
                 </li>
-                <?php for($i=1;$i<=$total_page;$i++){ ?>
-                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="withdraw_history.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                    <li class="page-item <?php echo $i == $page ? 'active' : ''; ?>"><a class="page-link" href="withdraw_history.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                 <?php } ?>
                 <li class="page-item">
-                <a class="page-link" href="withdraw_history.php?page=<?php echo $total_page; ?>">Next</a>
+                    <a class="page-link" href="withdraw_history.php?page=<?php echo $total_page; ?>">Next</a>
                 </li>
             </ul>
-            </div>
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer">
@@ -273,13 +280,13 @@ include("electricity_show.php");
 
 </body>
 <script>
-$(function() {
-    $('input[name="dates"]').daterangepicker({
-    opens: 'right'
-  }, function(start, end, label) {
-    window.location.href = `http://localhost:8000/withdraw_history.php?startDate=${start.format('YYYY-MM-DD')}&endDate=${end.format('YYYY-MM-DD')}`
-  });
-});
+    $(function() {
+        $('input[name="dates"]').daterangepicker({
+            opens: 'right'
+        }, function(start, end, label) {
+            window.location.href = `http://localhost:8000/withdraw_history.php?startDate=${start.format('YYYY-MM-DD')}&endDate=${end.format('YYYY-MM-DD')}`
+        });
+    });
 </script>
 
 </html>

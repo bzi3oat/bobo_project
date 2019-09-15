@@ -23,7 +23,7 @@ $result = $conn->query($select);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Focus Admin: Admin UI</title>
+    <title>ติดตามสถานะการแจ้งซ่อม</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -202,7 +202,7 @@ $result = $conn->query($select);
     ?>
 
     <div class="row">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center ml-auto mr-auto">
                 <li class="page-item">
                 <a class="page-link" href="visitor_tracking.php?page=1" tabindex="-1">Previous</a>
                 </li>
@@ -213,7 +213,7 @@ $result = $conn->query($select);
                 <a class="page-link" href="visitor_tracking.php?page=<?php echo $total_page; ?>">Next</a>
                 </li>
             </ul>
-            </div>
+    </div>
 
 
     <script>

@@ -42,9 +42,6 @@ while ($row = mysqli_fetch_array($objQuery)) {
     <link href="assets/css/lib/helper.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 
- 
-
-
     <style>
         /* Always set the map height explicitly to define the size of the div
              * element that contains the map. */
@@ -106,9 +103,9 @@ while ($row = mysqli_fetch_array($objQuery)) {
             padding: 30px;
             text-align: center;
             /* สไตล์สำหรับจัดให้อยู่กึ่งกลาง */
-           
 
-            }
+
+        }
     </style>
 
 </head>
@@ -119,142 +116,112 @@ while ($row = mysqli_fetch_array($objQuery)) {
     include("visitor_sidebar.php");
     ?>
     <!-- ---- -->
-    <div class="content-wrap">
-        <div class="main">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8 p-r-0 title-margin-right">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <h1>แจ้งเหตุขัดข้องเสาไฟฟ้าส่องสว่าง <span> </span></h1>
-                            </div>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 pt-5">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>แจ้งเหตุขัดข้องเสาไฟฟ้าส่องสว่าง</h3>
                     </div>
                 </div>
-
-
-                <!-- ระบุตำแหน่งเสาไฟฟ้าขัดข้อง -->
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-title pr">
-                            <h6>ระบุตำแหน่งเสาไฟฟ้าที่ขัดข้อง</h6>
-                            <div class="row">
-                                <div class="form-group">
-                                    <label></label>
-                                    <select class="form-control" required onchange="location = this.value">
-                                        <option value="visitor_index.php" disabled selected>เลือกหมู่บ้าน</option>
-                                        <option value="visitor_index.php?amphur=1">หมู่ 1 บ้านตองกาย</option>
-                                        <option value="visitor_index.php?amphur=2">หมู่ 2 บ้านฟ่อน</option>
-                                        <option value="visitor_index.php?amphur=3"">หมู่ 3 บ้านไร่-กองขิง</option>
-                                        <option value="visitor_index.php?amphur=4"">หมู่ 4 บ้านต้นเกว๋น</option>
-                                        <option value="visitor_index.php?amphur=5"">หมู่ 5 บ้านหนองควาย</option>
-                                        <option value="visitor_index.php?amphur=6"">หมู่ 6 บ้านร้อยจันทร์</option>
-                                        <option value="visitor_index.php?amphur=7"">หมู่ 7 บ้านเหมืองกุง</option>
-                                        <option value="visitor_index.php?amphur=8"">หมู่ 8 บ้านขุนเส</option>
-                                        <option value="visitor_index.php?amphur=9"">หมู่ 9 บ้านสันทราย</option>
-                                        <option value="visitor_index.php?amphur=10"">หมู่ 10 บ้านนาบุก</option>
-                                        <option value="visitor_index.php?amphur=11"">หมู่ 11 บ้านสันป่าสัก</option>
-                                        <option value="visitor_index.php?amphur=12"">หมู่ 12 บ้านตองกายเหนือ</option>
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <!-- GOOGLE MAP -->
-                            <div id="map" style="width:100%;height:700px;"></div>
-                        
-                        </div>
-                    </div>
-                </div>
-
-                <form action="backend/insert_declaration.php" method="post" name="form">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-title">
-                                    <h6>รายละเอียดข้อมูลการแจ้งซ่อม</h6>
-                                    
-                                    
-                                    <div class="row">
-                                        <div class="input-field col s5">
-                                            <i class="material-icons prefix">home</i>
-                                            <input id="saofai_id" type="text" name="saofai_id" readonly>
-                                        </div>
-
-                                     
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="input-field col s5">
-                                            <i class="material-icons prefix">account_circle</i>
-                                            <input id="icon_prefix" type="text" class="validate" name="Informate_fname" maxlength="50" required>
-                                            <label for="icon_prefix">ชื่อ</label>
-                                        </div>
-
-                                        <div class="input-field col s6">
-                                            <input id="icon_telephone" type="tel" class="validate" name="Informate_lname" maxlength="50" required>
-                                            <label for="icon_telephone">นามสกุล</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="input-field col s5">
-                                            <i class="material-icons prefix">credit_card</i>
-                                            <input id="icon_prefix" type="text" class="validate" name="informant_id_card" OnKeyPress="return chkNumber(this)" maxlength="13" required>
-                                            <label for="icon_prefix">หมายเลขบัตรประชาชน</label>
-                                        </div>
-
-                                        <div class="input-field col s5">
-                                            <i class="material-icons prefix">local_phone</i>
-                                            <input id="icon_prefix" type="text" class="validate" name="informant_tel" onkeyup="autoTab(this)" OnKeyPress="return chkNumber(this)" maxlength="11" required>
-                                            <label for="icon_prefix">เบอร์โทร</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <i class="material-icons prefix">format_align_left</i>
-                                            <textarea id="textarea1" class="materialize-textarea" name="repairing_detail"></textarea>
-                                            <label for="textarea1">รายละเอียดอื่นๆ อาการขัดข้อง</label>
-                                        </div>
-                                    </div>
-                                    
-                                <div class="card-body">
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- SUBMIT FORM BUTTON -->
-                        <div class="box">
-                       
-                            <div class="col-s-4">
-                                <button class="btn btn-#ffa726 orange lighten-1 btn-large" type="submit" name="action">Submit
-                                    <i class="material-icons right">send</i>
-                                </button> &nbsp;&nbsp;&nbsp;
-                            
-                           
-                                <button class="btn #757575 grey darken-1 btn-large" type="reset" name="action"> Reset
-                                </button>
-                            </div>
-                        </div>
-      
-                    </div>
-                </form>
             </div>
+            <!-- ระบุตำแหน่งเสาไฟฟ้าขัดข้อง -->
+            <div class="col-lg-12 pr-0 pl-0">
+                <div class="card">
+                    <div class="card-title pr">
+                        <h6>ระบุตำแหน่งเสาไฟฟ้าที่ขัดข้อง</h6>
+                        <div class="form-group">
+                            <label></label>
+                            <select class="form-control" required onchange="location = this.value">
+                                <option value="visitor_index.php" disabled selected>เลือกหมู่บ้าน</option>
+                                <option value="visitor_index.php?amphur=1">หมู่ 1 บ้านตองกาย</option>
+                                <option value="visitor_index.php?amphur=2">หมู่ 2 บ้านฟ่อน</option>
+                                <option value="visitor_index.php?amphur=3"">หมู่ 3 บ้านไร่-กองขิง</option>
+                                            <option value=" visitor_index.php?amphur=4"">หมู่ 4 บ้านต้นเกว๋น</option>
+                                <option value="visitor_index.php?amphur=5"">หมู่ 5 บ้านหนองควาย</option>
+                                            <option value=" visitor_index.php?amphur=6"">หมู่ 6 บ้านร้อยจันทร์</option>
+                                <option value="visitor_index.php?amphur=7"">หมู่ 7 บ้านเหมืองกุง</option>
+                                            <option value=" visitor_index.php?amphur=8"">หมู่ 8 บ้านขุนเส</option>
+                                <option value="visitor_index.php?amphur=9"">หมู่ 9 บ้านสันทราย</option>
+                                            <option value=" visitor_index.php?amphur=10"">หมู่ 10 บ้านนาบุก</option>
+                                <option value="visitor_index.php?amphur=11"">หมู่ 11 บ้านสันป่าสัก</option>
+                                            <option value=" visitor_index.php?amphur=12"">หมู่ 12 บ้านตองกายเหนือ
+                                </option>
+                                </option>
+                            </select>
+                        </div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer">
-                        <!-- <p>2019 © copyright - <a href="#">B. </a></p> -->
+                        <!-- GOOGLE MAP -->
+                        <div id="map" style="width:100%;height:700px;"></div>
+
                     </div>
                 </div>
             </div>
         </div>
+
+        <form action="backend/insert_declaration.php" method="post" name="form">
+
+            <div class="card">
+                <div class="card-title">
+                    <h6>รายละเอียดข้อมูลการแจ้งซ่อม</h6>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="input-field col-12">
+                                <i class="material-icons prefix">home</i>
+                                <input id="saofai_id" type="text" name="saofai_id" readonly>
+                            </div>
+
+                            <div class="input-field col-sm-12 col-lg-6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="text" class="validate" name="Informate_fname"
+                                    maxlength="50" required>
+                                <label for="icon_prefix">ชื่อ</label>
+                            </div>
+
+                            <div class="input-field col-sm-12 col-lg-6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_telephone" type="tel" class="validate" name="Informate_lname"
+                                    maxlength="50" required>
+                                <label for="icon_telephone">นามสกุล</label>
+                            </div>
+
+                            <div class="input-field col-sm-12">
+                                <i class="material-icons prefix">credit_card</i>
+                                <input id="icon_prefix" type="text" class="validate" name="informant_id_card"
+                                    OnKeyPress="return chkNumber(this)" maxlength="13" required>
+                                <label for="icon_prefix">หมายเลขบัตรประชาชน</label>
+                            </div>
+
+                            <div class="input-field col-sm-12">
+                                <i class="material-icons prefix">local_phone</i>
+                                <input id="icon_prefix" type="text" class="validate" name="informant_tel"
+                                    onkeyup="autoTab(this)" OnKeyPress="return chkNumber(this)" maxlength="11" required>
+                                <label for="icon_prefix">เบอร์โทร</label>
+                            </div>
+
+                            <div class="input-field col-sm-12">
+                                <i class="material-icons prefix">format_align_left</i>
+                                <textarea id="textarea1" class="materialize-textarea"
+                                    name="repairing_detail"></textarea>
+                                <label for="textarea1">รายละเอียดอื่นๆ อาการขัดข้อง</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBMIT FORM BUTTON -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button class="btn btn-#ffa726 orange lighten-1 btn-large mr-3" type="submit" name="action">Submit
+                    </button>
+                    <button class="btn #757575 grey darken-1 btn-large" type="reset" name="action"> Reset
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
-
-
     <!-- jquery vendor -->
     <script src="assets/js/lib/jquery.min.js"></script>
     <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
@@ -320,13 +287,13 @@ while ($row = mysqli_fetch_array($objQuery)) {
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV_WYNaYYPu9k86zrR-quNycJDvhcNur4&callback=initMap" async defer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV_WYNaYYPu9k86zrR-quNycJDvhcNur4&callback=initMap"
+        async defer>
     </script>
 
 </body>
 <script>
-
-    $( document ).ready(function() {
+    $(document).ready(function () {
         getLamp($('#village option:selected'))
     });
 
@@ -338,117 +305,120 @@ while ($row = mysqli_fetch_array($objQuery)) {
                 "villageID": value.value || value.val()
             },
             dataType: "json",
-            success: function(result) {
+            success: function (result) {
                 $('#lamp')
                     .empty()
-                if(result.length > 0) {
-                    $.each(result, function(key, value) {
-                    $('#lamp')
-                        .append($(`<option></option>`)
-                            .attr("value", value.LOC_ID)
-                            .text(value.LOC_ID));
-                })
+                if (result.length > 0) {
+                    $.each(result, function (key, value) {
+                        $('#lamp')
+                            .append($(`<option></option>`)
+                                .attr("value", value.LOC_ID)
+                                .text(value.LOC_ID));
+                    })
                 } else {
                     $('#lamp')
                         .append($(`<option></option>`)
                             .attr("value", 0)
                             .text("ไม่มี"));
                 }
-                
+
             },
-            error: function(err) {
+            error: function (err) {
                 console.log(err)
             }
 
         });
     }
 
-        var locations = [<?php
-            foreach ($latLng as $value) {
-                echo '[\'' . $value['0'] . '\',\'' . $value['1'] . '\',' . $value['2'] . ',' . $value['3'] . ']';
-                echo ',';
-            }
-        ?>];
+    var locations = [<?php
+        foreach($latLng as $value) {
+            echo '[\''.$value['0'].
+            '\',\''.$value['1'].
+            '\','.$value['2'].
+            ','.$value['3'].
+            ']';
+            echo ',';
+        } ?>
+    ];
 
-        var marker
-        var maps
-        
-        function initMap()
-        {
-                                    var mapOptions = {
-                                        center: {
-                                            lat: locations[0]['2'],
-                                            lng: locations[0]['3']
-                                        },
-                                        zoom: 14.5,
-                                    }
-                                    maps = new google.maps.Map(document.getElementById("map"), mapOptions);
-           
+    var marker
+    var maps
 
-                                    var infowindow = new google.maps.InfoWindow();
-                                    
-                                    for (let i = 0; i < locations.length; i++) {
-                                        const title = locations[i]['1']
-                                        marker = new google.maps.Marker({
-                                            position: new google.maps.LatLng(locations[i]['2'], locations[
-                                                i]['3']),
-                                            map: maps,
-                                            draggable: false,
-                                            animation: google.maps.Animation.DROP,
-                                            title: `${title}`
-                                        });
+    function initMap() {
+        var mapOptions = {
+            center: {
+                lat: locations[0]['2'],
+                lng: locations[0]['3']
+            },
+            zoom: 14.5,
+        }
+        maps = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-                                        google.maps.event.addListener(marker, 'click', (function(marker, si) {
-                                            return function() {
-                                                infowindow.setContent('<div id="content">'+
-                                        '<div id="siteNotice">'+
-                                        '</div>'+
-                                                '<div id="bodyContent">'+
-                                                `<p><b>รหัสเสาไฟ :</b>${title}<br> ` +
-                                                `<b>ชนิดหลอดไฟ :</b>${locations[i]['2']}<br>`+
-                                                `<b>LAT :</b>${locations[i]['2']}<br>`+
-                                                `<b>LNG :</b>${locations[i]['3']}<br>`+
-                                                `<b>ปรับปรุงครั้งล่าสุด :</b> <br>`+
-                                                `<b>รายละเอียดการซ่อม :</b> sandstone rock formation in the southern part of the  <br>`+
-                                        `<br><button class="btn btn-#ffa726 orange lighten-1 btn-block" onclick="onClickMarker('${title}')">เลือก</button>`+
-                                        '</div>'+
-                                        '</div>');
-                                                infowindow.open(map, marker);
-                                            }
-                                        })(marker, i));
-                                }
+
+        var infowindow = new google.maps.InfoWindow();
+
+        for (let i = 0; i < locations.length; i++) {
+            const title = locations[i]['1']
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i]['2'], locations[
+                    i]['3']),
+                map: maps,
+                draggable: false,
+                animation: google.maps.Animation.DROP,
+                title: `${title}`
+            });
+
+            google.maps.event.addListener(marker, 'click', (function (marker, si) {
+                return function () {
+                    infowindow.setContent('<div id="content">' +
+                        '<div id="siteNotice">' +
+                        '</div>' +
+                        '<div id="bodyContent">' +
+                        `<p><b>รหัสเสาไฟ :</b>${title}<br> ` +
+                        `<b>ชนิดหลอดไฟ :</b>${locations[i]['2']}<br>` +
+                        `<b>LAT :</b>${locations[i]['2']}<br>` +
+                        `<b>LNG :</b>${locations[i]['3']}<br>` +
+                        `<b>ปรับปรุงครั้งล่าสุด :</b> <br>` +
+                        `<b>รายละเอียดการซ่อม :</b> sandstone rock formation in the southern part of the  <br>` +
+                        `<br><button class="btn btn-#ffa726 orange lighten-1 btn-block" onclick="onClickMarker('${title}')">เลือก</button>` +
+                        '</div>' +
+                        '</div>');
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+        }
         currentLocation() // show current location
     }
 
     currentLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, returnStatusLocationPermission);
-        } else { 
+        } else {
             alert("กรุณาเปิดให้เบาร์เซอร์สามารถเข้าถึงตำแหน่งของคุณได้ !!!");
         }
     }
 
     showPosition = (position) => {
-  
+
         maps.setCenter({
-            lat : position.coords.latitude,
-		lng : position.coords.longitude
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
         })
-        
+
         marker = new google.maps.Marker({
-            position: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
+            position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
             map: maps,
             title: "ตำแหน่งของฉัน",
             icon: 'images/current-location-icon.png'
         });
 
         var currentLocationInfoWindow = new google.maps.InfoWindow({
-          content: "คุณอยู่ที่นี่",
-          maxWidth: 300
+            content: "คุณอยู่ที่นี่",
+            maxWidth: 300
         });
         currentLocationInfoWindow.open(maps, marker);
 
-        google.maps.event.addListener(marker, "click", function() {
+        google.maps.event.addListener(marker, "click", function () {
             currentLocationInfoWindow.setContent("ตำแหน่งของฉัน");
             currentLocationInfoWindow.open(maps, this);
         });
@@ -457,19 +427,19 @@ while ($row = mysqli_fetch_array($objQuery)) {
     }
 
     returnStatusLocationPermission = (error) => {
-        switch(error.code) {
+        switch (error.code) {
             case error.PERMISSION_DENIED:
                 alert("User denied the request for Geolocation.")
-            break;
+                break;
             case error.POSITION_UNAVAILABLE:
                 alert("Location information is unavailable.")
-            break;
+                break;
             case error.TIMEOUT:
                 alert("The request to get user location timed out.")
-            break;
+                break;
             case error.UNKNOWN_ERROR:
                 alert("An unknown error occurred.")
-            break;
+                break;
         }
     }
 

@@ -153,7 +153,7 @@ include("informant_show.php");
                                         <!-- <div> <th>วันที่แจ้ง</th></div> -->
                                      
                                         <div>
-                                            <th>อนุมัติ / ปฎิเสธ</th>
+                                            <th>อนุมัติงานซ่อม</th>
                                         </div>
                                     </tr>
                                 </thead>
@@ -197,10 +197,7 @@ include("informant_show.php");
                                                             </button>
                                                         </a> &nbsp;&nbsp;
                                                         
-                                                        <a href="#" onClick="onDelete(' . '\'' . $res['declaration_id'] . '\'' . ')">
-                                                        <button class="btn btn-danger m-b-5 m-l-1" type="button">
-                                                            <i class="ti-trash"></i> 
-                                                        </button> 
+                                                       
                                                     </a>
                                                 </td>';
                                         }
