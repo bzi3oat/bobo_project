@@ -146,12 +146,12 @@ $query = mysqli_query($conn, $sql);
                                     <!-- <div>
                                         <th>เบิกจำนวน</th>
                                     </div> -->
-                                    <div>
+                                    <!-- <div>
                                         <th>เบิกวัสดุ</th>
-                                    </div>
-                                    <div>
+                                    </div> -->
+                                    <!-- <div>
                                         <th>ใบสั่งซื้อ</th>
-                                    </div>
+                                    </div> -->
                                     <div>
                                         <th>ลบวัสดุ</th>
                                     </div>
@@ -184,15 +184,15 @@ $query = mysqli_query($conn, $sql);
                                         //                 </button>
                                         //             </a></td>';
 
-                                        echo '<td><button type="button" class="btn btn-success" id="modalbtn" data-toggle="modal" data-target="#exampleModalCenter" data-stuff="'. $res['stuff_id'] .'" data-amount="'. $res['stuff_amount'] .'">
-                                                <i class="ti-shopping-cart-full"></i> 
-                                            </button>
-                                            </td>';
-                                        echo '<td>  
-                                                        <button class="btn btn-primary m-b-5 m-l-1" type="button">
-                                                            <i class="ti-printer"></i> 
-                                                        </button>
-                                                   </td>';
+                                        // echo '<td><button type="button" class="btn btn-success" id="modalbtn" data-toggle="modal" data-target="#exampleModalCenter" data-stuff="'. $res['stuff_id'] .'" data-amount="'. $res['stuff_amount'] .'">
+                                        //         <i class="ti-shopping-cart-full"></i> 
+                                        //     </button>
+                                        //     </td>';
+                                        // echo '<td>  
+                                        //                 <button class="btn btn-primary m-b-5 m-l-1" type="button">
+                                        //                     <i class="ti-printer"></i> 
+                                        //                 </button>
+                                        //            </td>';
                                         echo '<td>  <a href="#" onClick="onDelete('.$res['stuff_id'].')">
                                                         <button class="btn btn-danger m-b-5 m-l-1" type="button">
                                                         <i class="ti-trash"></i> 

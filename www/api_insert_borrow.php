@@ -15,7 +15,9 @@ mysqli_query($conn, "INSERT INTO borrow(b_amount, b_date, member_id, stuff_id, l
 								'$_GET[loc_id]'
                                 )") or die("Error insert_cate เกิดจาก : " . mysqli_error($conn));
 
-$newAmount = $_GET['old_total'] - $_GET['amount'];
+$deQuery = mysqli_query($conn, 'SELECT * FROM warehouse where stuff_id = "' .  $_GET['stuff_id'] . '"');
+$old_amount = mysqli_fetch_array($deQuery)['stuff_amount'];
+$newAmount =  $old_amount - $_GET['amount'];
 
 $sqlupdatewarehouse = "UPDATE warehouse 
 SET stuff_amount = '$newAmount'

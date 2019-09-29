@@ -10,19 +10,6 @@ $chkStatus = "SELECT * FROM member WHERE  member_email = '" . $_POST['txtUsernam
 $objQuerychkStatus = mysqli_query($conn, $chkStatus);
 
 
-if (mysqli_num_rows($objQuerychkStatus) >= 1) {
-	?>
-	<script type="text/javascript">
-		swal("บัญชีผู้ใช้นี้ไม่สามารถเข้าสู่ระบบได้", "กรุณาติดต่อเจ้าหน้าที่ดูแลระบบ", "error")
-		setTimeout(function() {
-			window.location.href = "login.php";
-		}, 5000);
-	</script>
-	
-
-<?php
-} else {
-
 	$objQuery = mysqli_query($conn, $strSQL);
 	$objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 	if (!$objResult) {
@@ -52,6 +39,5 @@ if (mysqli_num_rows($objQuerychkStatus) >= 1) {
 			header("location:../login.php");
 		}
 	}
-}
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('connect.php');
+include('api_retreievewarehouse.php');
 
 $perpage = 10;
  if (isset($_GET['page'])) {
@@ -11,7 +12,7 @@ $perpage = 10;
  
  $start = ($page - 1) * $perpage;
 
-$deSQL = "SELECT * FROM declaration ORDER BY declaration_id DESC ";
+$deSQL = "SELECT * FROM declaration ";
 $updatestatus;
 
 if (isset($_SESSION["member_typeid"])) {
@@ -33,6 +34,9 @@ if (isset($_SESSION["member_typeid"])) {
 
 mysqli_set_charset($conn, 'utf8');
 $deQuery = mysqli_query($conn, $deSQL);
+// print_r(mysqli_fetch_array($deQuery));exit;
+$sql = "SELECT * FROM village";
+$query = mysqli_query($conn, $sql);
 ?>
 <?php
 include("informant_show.php");
@@ -111,14 +115,11 @@ include("informant_show.php");
 
                 <div class="card-body">
                     <div class="table-responsive">
-
                         <div class="input-group input-group-default">
                             <button class="btn btn-#ffa726 orange lighten-1 btn-large" type="submit">
                                 <span class="ti-search"></span>
                             </button> &nbsp;&nbsp;&nbsp;
                             <input class="form-control " id="myInput" type="text" placeholder="กรุณาระบุข้อมูลผู้แจ้ง..">
-
-
                         </div>
                         <div class="row">
                             <div class="form-group">
@@ -144,17 +145,19 @@ include("informant_show.php");
                                         <div>
                                             <th>เบอร์โทร</th>
                                         </div>
+                                        
+                                        <div>
+                                            <th>สถานะ</th>
+                                        </div>
                                         <div>
                                             <th>PDF</th>
                                         </div>
                                         <div>
-                                            <th>สถานะ</th>
+                                            <th>เบิกวัสดุ</th>
                                         </div>
-                                        <!-- <div> <th>วันที่แจ้ง</th></div> -->
-                                      
-                                        <!-- <div>
-                                        <th>อนุมัติ / ปฎิเสธ</th>
-                                    </div> -->
+                                        <div>
+                                            <th>อนุมัติงานซ่อม</th>
+                                        </div>
                                     </tr>
                                 </thead>
                                 <tbody id="myTable">
@@ -163,13 +166,10 @@ include("informant_show.php");
                                     while ($res = mysqli_fetch_array($deQuery)) {
                                         ?>
 
-                                        <tr>
-                                            <?php
+                                    <tr>
+                                        <?php
                                             $status = "";
-                                            echo '<td>' .   '<a style="color:blue;" href="admin_detail.php?declarationId=' . $res['declaration_id']. '">
-                                                            '.$res['declaration_id']. ' 
-                                                            </a>' . "</td>";
-                                          
+                                            
                                             if ($res['repairing_status'] == "0") {
                                                 $status = '<span class="badge badge-warning">รอการตรวจสอบ</span>';
                                             } else if ($res['repairing_status'] == "1") {
@@ -179,32 +179,34 @@ include("informant_show.php");
                                             } else if ($res['repairing_status'] == "3") {
                                                 $status = '<span class="badge badge-danger">ปฏิเสธ</span>';
                                             }
-                                           
+                                            echo '<td>' .   '<a style="color:blue;" href="admin_detail.php?declarationId=' . $res['declaration_id']. '">
+                                                            '.$res['declaration_id']. ' 
+                                                        </a> ' . "</td>";
                                             echo '<td>' . $res['Informate_fname'] . "</td>";
                                             echo '<td>' . $res['Informate_lname'] . "</td>";
                                             // echo '<td>'.$res['informant_id_card']."</td>";
                                             echo '<td>' . $res['informant_tel'] . "</td>";
-
+                                           
                                             // echo '<td>'.$res['declaration_date']."</td>";
+                                            echo '<td>' . $status . '</td>';
                                             echo '<td>' .   '<a href="admin_report_complete2.php?decId='.$res['declaration_id'].'">
                                             <button class="btn btn-primary m-b-5 m-l-1" type="button">
                                             <i class="ti-printer"></i>
                                             </button>   
                                         </a>' . '</td>';
-                                            echo '<td>' . $status . '</td>';
-                                         
-                                            // echo    '<td>   <a href="updatestatus.php?status='.'&id=' . $res['declaration_id'] . '"> 
-                                            //                     <button class="btn btn-success m-b-5 m-l-1" type="button">
-                                            //                         <i class="ti-check"></i> 
-                                            //                     </button>
-                                            //                 </a> &nbsp;&nbsp;
-
-                                            //                 <a href="#" onClick="onDelete(' . '\''. $res['declaration_id'] .'\'' . ')">
-                                            //                 <button class="btn btn-danger m-b-5 m-l-1" type="button">
-                                            //                     <i class="ti-trash"></i> 
-                                            //                 </button> 
-                                            //             </a>
-                                            //         </td>';
+                                        echo '<td><button type="button" class="btn btn-success" id="modalbtn" data-toggle="modal" data-target="#exampleModalCenter" data-stuff="'. $res['stuff_id'] .'" data-amount="'. $res['stuff_amount'] .'">
+                                        <i class="ti-shopping-cart-full"></i> 
+                                    </button>
+                                    </td>';
+                                            echo    '<td>   <a href="updatestatus.php?status=' . $updatestatus . '&id=' . $res['declaration_id'] . '"> 
+                                                            <button class="btn btn-success m-b-5 m-l-1" type="button">
+                                                                <i class="ti-check"></i> 
+                                                            </button>
+                                                        </a> &nbsp;&nbsp;
+                                                        
+                                                       
+                                                    </a>
+                                                </td>';
                                         }
                                         ?>
                                     </tr>
@@ -215,8 +217,9 @@ include("informant_show.php");
                     </div>
                 </div>
             </div>
+
             <?php
-            $deSQL = "SELECT * FROM declaration ORDER BY declaration_id DESC ";
+            $deSQL = "SELECT * FROM declaration ";
             $updatestatus;
             
             if (isset($_SESSION["member_typeid"])) {
@@ -235,6 +238,7 @@ include("informant_show.php");
                     $updatestatus = 2;
                 }
             }
+            
   
     $query2 = mysqli_query($conn, $deSQL);
     $total_record = mysqli_num_rows($query2);
@@ -243,13 +247,13 @@ include("informant_show.php");
         <div class="col-lg-12">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
-                <a class="page-link" href="informant_datail3.php?page=1" tabindex="-1">Previous</a>
+                <a class="page-link" href="informant_datail.php?page=1" tabindex="-1">Previous</a>
                 </li>
                 <?php for($i=1;$i<=$total_page;$i++){ ?>
-                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="informant_datail3.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
+                <li class="page-item <?php echo $i == $page ? 'active' : '';?>"><a class="page-link" href="informant_datail.php?page=<?php echo $i; ?>"><?php echo $i;?></a></li>
                 <?php } ?>
                 <li class="page-item">
-                <a class="page-link" href="informant_datail3.php?page=<?php echo $total_page; ?>">Next</a>
+                <a class="page-link" href="informant_datail.php?page=<?php echo $total_page; ?>">Next</a>
                 </li>
             </ul>
             </div>
@@ -274,6 +278,69 @@ include("informant_show.php");
         </form>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">รายละเอียดการเบิก</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">จำนวน</label>
+                                <input type="text" class="form-control" id="total">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">วัสดุ</label>
+                                <select class="custom-select custom-select-lg mb-3 d-block w-100" id="product">
+                                    <option selected disabled>เลือกวัสดุ</option>
+                                    <?php 
+                                        while ($res = mysqli_fetch_array($resultwarehouse)) {
+                                            echo '<option value="' . $res['stuff_id'] . '">'. $res['stuff_name'] .'</option>';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">หมู่บ้าน</label>
+                                <select class="custom-select custom-select-lg mb-3 d-block w-100" id="village">
+                                    <option selected disabled>เลือกหมู่บ้าน</option>
+                                    <?php 
+                                        while ($res = mysqli_fetch_array($query)) {
+                                            echo '<option value="' . $res['village_id'] . '">'. $res['village_name'] .'</option>';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">เสาไฟ</label>
+                                <select class="custom-select custom-select-lg mb-3 d-block w-100" id="lamp">
+                                    <option selected disabled>เลือกเสาไฟ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="save">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function() {
             $("#myInput").on("keyup", function() {
@@ -282,6 +349,66 @@ include("informant_show.php");
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
+            $('#modalbtn').click(function() {
+                var href = $(this).data('target')
+                var stuff = $(this).data('stuff');
+                var amount = $(this).data('amount');
+
+                $(href).data('stuff', stuff);
+                $(href).data('amount', amount);
+            });
+
+            $('#total').on('keyup', function () {
+                this.value = this.value.replace(/[^0-9\.]/g,'');
+            })
+
+            $('#village').on('change', function() {
+                getLamp(this)
+            })
+
+            $('#save').click(function(e) {
+                const total = $('#total').val();
+                const lamp = $('#lamp').val()
+                const product = $('#product').val()
+                if(total !== "" && typeof total !== 'undefined' && lamp !== 0 && lamp !== null && product !== 0 && product !== null) {
+                    window.location.href = "http://localhost:8000/api_insert_borrow.php?amount=" + total + "&stuff_id=" + $('#product').val() +
+                    "&loc_id=" + lamp
+                } else {
+                    alert('กรุณากรอกข้อมูลให้ครบ')
+                }
+            })
+
+            getLamp = async (value) => {
+                $.ajax({
+                    type: "post",
+                    url: "backend/getLamp.php",
+                    data: {
+                        "villageID": value.value || value.val()
+                    },
+                    dataType: "json",
+                    success: function(result) {
+                        $('#lamp')
+                            .empty()
+                        if(result.length > 0) {
+                            $.each(result, function(key, value) {
+                            $('#lamp')
+                                .append($(`<option></option>`)
+                                    .attr("value", value.LOC_ID)
+                                    .text(value.LOC_ID));
+                        })
+                        } else {
+                            $('#lamp')
+                                .append($(`<option></option>`)
+                                    .attr("value", 0)
+                                    .text("ไม่มี"));
+                        }
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    }
+                });
+            }
         });
     </script>
     <!-- jquery vendor -->

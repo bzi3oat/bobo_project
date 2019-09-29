@@ -5,7 +5,6 @@ INNER JOIN province as p on member_address.province = p.Pid
 INNER JOIN district as d on member_address.district = d.Did
 INNER JOIN subdistrict as sd on member_address.sub_district = sd.SDTid
 WHERE member.member_id = '" . $_SESSION['member_id'] . "'";
-
 mysqli_set_charset($conn, 'utf8');
 $objMember = mysqli_query($conn, $member);
 $objMemberResult = mysqli_fetch_array($objMember, MYSQLI_ASSOC);

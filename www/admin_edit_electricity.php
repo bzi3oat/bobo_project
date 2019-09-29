@@ -134,43 +134,43 @@ $editResult = mysqli_fetch_array($editQuery, MYSQLI_ASSOC);
                                     <div class="input-field col l12">
                                       <select class="form-control" name="village_id" required>
                                         <option value="admin_electricity_manage.php" disabled
-                                          <?php echo isset($_GET['villageId']) ? "" : "selected"; ?>>เลือกหมู่บ้าน
+                                          <?php echo isset($editResult['village_id']) ? "" : "selected"; ?>>เลือกหมู่บ้าน
                                         </option>
-                                        <option value="admin_electricity_manage.php?villageId=1"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 1 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 1 ? "selected" : ""; ?>>
                                           หมู่ 1 บ้านตองกาย</option>
-                                        <option value="admin_electricity_manage.php?villageId=2"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 2 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 2 ? "selected" : ""; ?>>
                                           หมู่ 2 บ้านฟ่อน</option>
-                                        <option value="admin_electricity_manage.php?villageId=3"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 3 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 3 ? "selected" : ""; ?>>
                                           หมู่ 3 บ้านไร่-กองขิง</option>
-                                        <option value="admin_electricity_manage.php?villageId=4"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 4 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 4 ? "selected" : ""; ?>>
                                           หมู่ 4 บ้านต้นเกว๋น</option>
-                                        <option value="admin_electricity_manage.php?villageId=5"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 5 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 5 ? "selected" : ""; ?>>
                                           หมู่ 5 บ้านหนองควาย</option>
-                                        <option value="admin_electricity_manage.php?villageId=6"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 6 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 6 ? "selected" : ""; ?>>
                                           หมู่ 6 บ้านร้อยจันทร์</option>
-                                        <option value="admin_electricity_manage.php?villageId=7"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 7 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 7 ? "selected" : ""; ?>>
                                           หมู่ 7 บ้านเหมืองกุง</option>
-                                        <option value="admin_electricity_manage.php?villageId=8"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 8 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 8 ? "selected" : ""; ?>>
                                           หมู่ 8 บ้านขุนเส</option>
-                                        <option value="admin_electricity_manage.php?villageId=9"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 9 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 9 ? "selected" : ""; ?>>
                                           หมู่ 9 บ้านสันทราย</option>
-                                        <option value="admin_electricity_manage.php?villageId=10"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 10 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 10 ? "selected" : ""; ?>>
                                           หมู่ 10 บ้านนาบุก</option>
-                                        <option value="admin_electricity_manage.php?villageId=11"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 11 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 11 ? "selected" : ""; ?>>
                                           หมู่ 11 บ้านสันป่าสัก</option>
-                                        <option value="admin_electricity_manage.php?villageId=12"
-                                          <?php echo isset($_GET['villageId']) && $_GET['villageId'] == 12 ? "selected" : ""; ?>>
+                                        <option value="<?php echo $editResult['village_id']; ?>"
+                                          <?php echo isset($editResult['village_id']) && $editResult['village_id'] == 12 ? "selected" : ""; ?>>
                                           หมู่ 12 บ้านตองกายเหนือ</option>
                                       </select>
                                     </div>

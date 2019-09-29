@@ -11,7 +11,7 @@ $perpage = 10;
  
  $start = ($page - 1) * $perpage;
 
-$locationSQL = "SELECT br.*, warehouse.stuff_name, (SELECT COUNT(*) FROM borrow as b where b.b_date <= br.b_date and b.loc_id = br.loc_id) AS position from borrow as br inner join warehouse on br.stuff_id = warehouse.stuff_id limit {$start} , {$perpage}";
+$locationSQL = "SELECT br.*, warehouse.stuff_name, (SELECT COUNT(*) FROM borrow as b where b.b_date <= br.b_date and b.loc_id = br.loc_id) AS position from borrow as br inner join warehouse on br.stuff_id = warehouse.stuff_id order by position desc limit {$start} , {$perpage}";
 $queryLocation = mysqli_query($conn, $locationSQL);
 
 ?>
